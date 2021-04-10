@@ -1,3 +1,5 @@
+import time
+
 
 def memo_best_sum(target_sum, numbers, memo={}):
     """ Returns a 2D list of all possible ways to
@@ -8,7 +10,6 @@ def memo_best_sum(target_sum, numbers, memo={}):
     if target_sum == 0:                 # Base case
         return []
     if target_sum < 0:
-        print('target_sum must be positive')
         return None
 
     short_comb = None                   # Shortest combination
@@ -62,8 +63,21 @@ if __name__ == '__main__':
     all_cases = list(zip(target_sums, all_numbers))
 
     for a_case in all_cases:
-        memo_best = memo_best_sum(a_case[0], a_case[1], {})
-        print(memo_best)
 
+        # Memoized best_sum
+        start_time = time.time()
+        memo_best = memo_best_sum(a_case[0], a_case[1], {})
+        end_time = time.time()
+        memo_time = end_time - start_time
+
+        # Tabulated best_sum
+        start_time = time.time()
         tab_best = tab_best_sum(a_case[0], a_case[1])
-        print(tab_best)
+        end_time = time.time()
+        tab_time = end_time - start_time
+
+        # Results
+        print(f'What is the best way to sum up to {a_case[0]} using {a_case[1]}?')
+        print(memo_best)
+        print('memo_can: ', memo_time)
+        print('tab_can:  ', tab_time, '\n')

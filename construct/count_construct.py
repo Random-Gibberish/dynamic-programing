@@ -1,3 +1,5 @@
+import time
+
 
 def memo_count_construct(target, word_bank, memo={}):
     """ Returns the numbers of ways 'target' can be
@@ -53,8 +55,21 @@ if __name__ == '__main__':
     all_constructs = list(zip(targets, word_banks))
 
     for construct in all_constructs:
-        memo_count = memo_count_construct(construct[0], construct[1])
-        print(memo_count)
 
+        # Memoized can_construct
+        start_time = time.time()
+        memo_count = memo_count_construct(construct[0], construct[1])
+        end_time = time.time()
+        memo_time = end_time - start_time
+
+        # Tabulated can_construct
+        start_time = time.time()
         tab_count = tab_count_construct(construct[0], construct[1])
-        print(tab_count)
+        end_time = time.time()
+        tab_time = end_time - start_time
+
+        # Results
+        print(f'How many ways can you form {construct[0]} using {construct[1]}?')
+        print(memo_count)
+        print('memo_count: ', memo_time)
+        print('tab_count:  ', tab_time, '\n')

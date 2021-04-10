@@ -1,3 +1,5 @@
+import time
+
 
 def fib(n):
     """ Returns an integer in O(2^n) time """
@@ -41,14 +43,30 @@ def tab_fib(n):
 
 
 if __name__ == '__main__':
-    list_n = [6, 7, 8, 50]
+    list_n = [6, 7, 8, 40]
 
     for _ in list_n:
-        fib_n = fib(_)      # Too slow for large n
-        print(fib_n)
 
-        tab_fib_n = tab_fib(_)
-        print(tab_fib_n)
+        # Original fib function
+        start_time = time.time()
+        fib_n = fib(_)              # Too slow for large n
+        end_time = time.time()
+        fib_time = end_time - start_time
 
+        # Memoized fib function
+        start_time = time.time()
         memo_fib_n = memo_fib(_)
-        print(memo_fib_n)
+        end_time = time.time()
+        memo_time = end_time - start_time
+
+        # Tabulated fib function
+        start_time = time.time()
+        tab_fib_n = tab_fib(_)
+        end_time = time.time()
+        tab_time = end_time - start_time
+
+        # Results
+        print(f'fib({_}) = {fib_n}')
+        print('fib_time:  ', fib_time)
+        print('memo_time: ', memo_time)
+        print('tab_time:  ', tab_time, '\n')

@@ -1,3 +1,5 @@
+import time
+
 
 def memo_can_sum(target_sum, numbers, memo={}):
     """ Returns a boolean value depending on whether
@@ -9,7 +11,6 @@ def memo_can_sum(target_sum, numbers, memo={}):
     if target_sum == 0:                 # Base case
         return True
     if target_sum < 0:
-        print('target_sum must be positive')
         return False
 
     for num in numbers:                 # For each number subtract it
@@ -53,8 +54,21 @@ if __name__ == '__main__':
     all_cases = list(zip(target_sums, all_numbers))
 
     for a_case in all_cases:
-        memo_can = memo_can_sum(a_case[0], a_case[1], {})
-        print(memo_can)
 
+        # Memoized  can_sum
+        start_time = time.time()
+        memo_can = memo_can_sum(a_case[0], a_case[1], {})
+        end_time = time.time()
+        memo_time = end_time - start_time
+
+        # Tabulated can_sum
+        start_time = time.time()
         tab_can = tab_can_sum(a_case[0], a_case[1])
-        print(tab_can)
+        end_time = time.time()
+        tab_time = end_time - start_time
+
+        # Results
+        print(f'Can you sum up to {a_case[0]} using {a_case[1]}?')
+        print(memo_can)
+        print('memo_can: ', memo_time)
+        print('tab_can:  ', tab_time, '\n')

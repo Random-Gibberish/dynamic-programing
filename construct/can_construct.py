@@ -1,3 +1,5 @@
+import time
+
 
 def memo_can_construct(target, word_bank, memo={}):
     """ Returns a boolean value depending on whether 'target'
@@ -53,8 +55,21 @@ if __name__ == '__main__':
     all_constructs = list(zip(targets, word_banks))
 
     for construct in all_constructs:
-        memo_can = memo_can_construct(construct[0], construct[1])
-        print(memo_can)
 
+        # Memoized can_construct
+        start_time = time.time()
+        memo_can = memo_can_construct(construct[0], construct[1])
+        end_time = time.time()
+        memo_time = end_time - start_time
+
+        # Tabulated can_construct
+        start_time = time.time()
         tab_can = tabulated_can_construct(construct[0], construct[1])
-        print(tab_can)
+        end_time = time.time()
+        tab_time = end_time - start_time
+
+        # Results
+        print(f'Can you form {construct[0]} from {construct[1]}?')
+        print(memo_can)
+        print('memo_can: ', memo_time)
+        print('tab_can:  ', tab_time, '\n')

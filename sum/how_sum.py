@@ -1,3 +1,5 @@
+import time
+
 
 def memo_how_sum(target_sum, numbers, memo={}):
     """ Returns the first list that sums up
@@ -8,7 +10,6 @@ def memo_how_sum(target_sum, numbers, memo={}):
     if target_sum == 0:         # Base case
         return []
     if target_sum < 0:
-        print('target_sum must be positive')
         return None
 
     # For each number subtract it from the target and
@@ -56,8 +57,21 @@ if __name__ == '__main__':
     all_cases = list(zip(target_sums, all_numbers))
 
     for a_case in all_cases:
-        memo_how = memo_how_sum(a_case[0], a_case[1], {})
-        print(memo_how)
 
+        # Memoized how_sum
+        start_time = time.time()
+        memo_how = memo_how_sum(a_case[0], a_case[1], {})
+        end_time = time.time()
+        memo_time = end_time - start_time
+
+        # Tabulated how_sum
+        start_time = time.time()
         tab_how = tab_how_sum(a_case[0], a_case[1])
-        print(tab_how)
+        end_time = time.time()
+        tab_time = end_time - start_time
+
+        # Results
+        print(f'How can you sum up to {a_case[0]} using {a_case[1]}?')
+        print(memo_how)
+        print('memo_can: ', memo_time)
+        print('tab_can:  ', tab_time, '\n')

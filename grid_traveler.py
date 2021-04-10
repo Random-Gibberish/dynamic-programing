@@ -1,3 +1,5 @@
+import time
+
 
 def grid_traveler(m, n):
     """ A slow grid traveler solution which returns
@@ -27,7 +29,7 @@ def memo_grid_traveler(m, n, memo={}):
     return memo[key]
 
 
-def tabd_grid_traveler(m, n):
+def tab_grid_traveler(m, n):
     """ A tabulated solution which returns the
         value at arr[m][n] in O(mn) time """
 
@@ -46,17 +48,33 @@ def tabd_grid_traveler(m, n):
 
 
 if __name__ == '__main__':
-    grids = [(1, 1), (2, 3), (3, 2), (3, 3), (18, 18)]
+    grids = [(1, 1), (2, 3), (3, 2), (3, 3), (15, 15)]
 
     for grid in grids:
         grid_row = int(grid[0])
         grid_col = int(grid[1])
 
+        # Original grid traveler
+        start_time = time.time()
         slow = grid_traveler(grid_row, grid_col)  # Too slow for large [m, n]
-        print(slow)
+        end_time = time.time()
+        slow_time = end_time - start_time
 
+        # Memoized grid traveler
+        start_time = time.time()
         memo_grid = memo_grid_traveler(grid_row, grid_col, {})
-        print(memo_grid)
+        end_time = time.time()
+        memo_time = end_time - start_time
 
-        tab_grid = tabd_grid_traveler(grid_row, grid_col)
-        print(tab_grid)
+        # Tabulated grid traveler
+        start_time = time.time()
+        tab_grid = tab_grid_traveler(grid_row, grid_col)
+        end_time = time.time()
+        tab_time = end_time - start_time
+
+        # Results
+        print('Grid size:', grid)
+        print('Ways to travel grid:', memo_grid)
+        print('grid_traveler:      ', slow_time)
+        print('memo_grid_traveler: ', memo_time)
+        print('tab_grid_traveler:  ', tab_time, '\n')

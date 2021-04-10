@@ -1,3 +1,5 @@
+import time
+
 
 def memo_all_construct(target, word_bank, memo={}):
     """ Returns all possible ways of forming 'target' from
@@ -56,8 +58,21 @@ if __name__ == '__main__':
     all_constructs = list(zip(targets, word_banks))
 
     for construct in all_constructs:
-        memo_all = memo_all_construct(construct[0], construct[1])
-        print(memo_all)
 
+        # Memoized can_construct
+        start_time = time.time()
+        memo_all = memo_all_construct(construct[0], construct[1])
+        end_time = time.time()
+        memo_time = end_time - start_time
+
+        # Tabulated can_construct
+        start_time = time.time()
         tab_all = tab_all_construct(construct[0], construct[1])
-        print(tab_all)
+        end_time = time.time()
+        tab_time = end_time - start_time
+
+        # Results
+        print(f'Show all the ways you can form {construct[0]} using {construct[1]}?')
+        print(memo_all)
+        print('memo_all: ', memo_time)
+        print('tab_all:  ', tab_time, '\n')
